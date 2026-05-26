@@ -1,1 +1,183 @@
+# Food Delivery Demo App + GitHub Actions CI/CD for AWS S3 & CloudFront
+
+This is a simple static food delivery demo application that you can upload automatically to AWS S3 using GitHub Actions and serve through CloudFront.
+
+---
+
+# Project Structure
+
+```bash
+food-delivery-app/
+│
+├── index.html
+├── style.css
+├── app.js
+├── README.md
+│
+└── .github/
+    └── workflows/
+        └── deploy.yml
+```
+
+---
+
+# 1. index.html
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Delivery App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>QuickBite Food Delivery</h1>
+  <p>Fresh Food Delivered Fast</p>
+</header>
+
+<section class="food-container">
+
+  <div class="food-card">
+    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" alt="Pizza">
+    <h2>Pizza</h2>
+    <p>Cheesy loaded pizza</p>
+    <button onclick="orderFood('Pizza')">Order Now</button>
+  </div>
+
+  <div class="food-card">
+    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd" alt="Burger">
+    <h2>Burger</h2>
+    <p>Double patty burger</p>
+    <button onclick="orderFood('Burger')">Order Now</button>
+  </div>
+
+  <div class="food-card">
+    <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092" alt="Pasta">
+    <h2>Pasta</h2>
+    <p>Italian creamy pasta</p>
+    <button onclick="orderFood('Pasta')">Order Now</button>
+  </div>
+
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>
+```
+
+---
+
+# 2. style.css
+
+```css
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+header {
+  background: #ff5722;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.food-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 30px;
+}
+
+.food-card {
+  background: white;
+  border-radius: 12px;
+  width: 300px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.food-card:hover {
+  transform: scale(1.03);
+}
+
+.food-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.food-card h2 {
+  margin: 10px;
+}
+
+.food-card p {
+  margin: 10px;
+  color: #555;
+}
+
+button {
+  margin: 15px;
+  padding: 10px 20px;
+  border: none;
+  background: #ff5722;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #e64a19;
+}
+```
+
+---
+
+# 3. app.js
+
+```javascript
+function orderFood(item) {
+    alert(`${item} ordered successfully!`);
+}
+```
+
+---
+
+# 4. GitHub Actions Workflow
+
+Create this file:
+
+```bash
+.github/workflows/deploy.yml
+```
+
+Paste the following:
+
+```yaml
+name: Deploy Food Delivery App to AWS S3
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+```
 
