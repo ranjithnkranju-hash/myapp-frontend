@@ -1,70 +1,53 @@
-# Food Delivery Demo App + GitHub Actions CI/CD for AWS S3 & CloudFront
-
-This is a simple static food delivery demo application that you can upload automatically to AWS S3 using GitHub Actions and serve through CloudFront.
-
----
-
-# Project Structure
-
-```bash
-food-delivery-app/
-│
-├── index.html
-├── style.css
-├── app.js
-├── README.md
-│
-└── .github/
-    └── workflows/
-        └── deploy.yml
-```
-
----
-
 # 1. index.html
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Food Delivery App</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickBite Food Delivery</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-  <h1>QuickBite Food Delivery</h1>
-  <p>Fresh Food Delivered Fast</p>
-</header>
+    <header>
+        <h1>QuickBite</h1>
+        <p>Fresh food delivered fast</p>
+    </header>
 
-<section class="food-container">
+    <section class="banner">
+        <h2>Order Your Favorite Meals</h2>
+        <button onclick="showAlert()">Order Now</button>
+    </section>
 
-  <div class="food-card">
-    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" alt="Pizza">
-    <h2>Pizza</h2>
-    <p>Cheesy loaded pizza</p>
-    <button onclick="orderFood('Pizza')">Order Now</button>
-  </div>
+    <section class="food-list">
 
-  <div class="food-card">
-    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd" alt="Burger">
-    <h2>Burger</h2>
-    <p>Double patty burger</p>
-    <button onclick="orderFood('Burger')">Order Now</button>
-  </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=800&auto=format&fit=crop" alt="Pizza">
+            <h3>Cheese Pizza</h3>
+            <p>₹299</p>
+        </div>
 
-  <div class="food-card">
-    <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092" alt="Pasta">
-    <h2>Pasta</h2>
-    <p>Italian creamy pasta</p>
-    <button onclick="orderFood('Pasta')">Order Now</button>
-  </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop" alt="Burger">
+            <h3>Chicken Burger</h3>
+            <p>₹199</p>
+        </div>
 
-</section>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1604908176997-4317dacd8b47?q=80&w=800&auto=format&fit=crop" alt="Pasta">
+            <h3>Italian Pasta</h3>
+            <p>₹249</p>
+        </div>
 
-<script src="app.js"></script>
+    </section>
+
+    <footer>
+        <p>© 2026 QuickBite Food Delivery</p>
+    </footer>
+
+    <script src="app.js"></script>
 </body>
 </html>
 ```
@@ -74,67 +57,79 @@ food-delivery-app/
 # 2. style.css
 
 ```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
+    background: #f4f4f4;
 }
 
 header {
-  background: #ff5722;
-  color: white;
-  text-align: center;
-  padding: 20px;
+    background: #ff5722;
+    color: white;
+    text-align: center;
+    padding: 20px;
 }
 
-.food-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  padding: 30px;
+.banner {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(to right, #ff7043, #ff5722);
+    color: white;
 }
 
-.food-card {
-  background: white;
-  border-radius: 12px;
-  width: 300px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  overflow: hidden;
-  transition: transform 0.3s;
+.banner h2 {
+    margin-bottom: 20px;
+    font-size: 36px;
 }
 
-.food-card:hover {
-  transform: scale(1.03);
+.banner button {
+    padding: 12px 24px;
+    border: none;
+    background: white;
+    color: #ff5722;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 6px;
 }
 
-.food-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
+.food-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px;
+    flex-wrap: wrap;
 }
 
-.food-card h2 {
-  margin: 10px;
+.card {
+    background: white;
+    border-radius: 10px;
+    width: 300px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.food-card p {
-  margin: 10px;
-  color: #555;
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
 }
 
-button {
-  margin: 15px;
-  padding: 10px 20px;
-  border: none;
-  background: #ff5722;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
+.card h3,
+.card p {
+    padding: 10px 15px;
 }
 
-button:hover {
-  background: #e64a19;
+footer {
+    text-align: center;
+    background: #222;
+    color: white;
+    padding: 15px;
+    margin-top: 20px;
 }
 ```
 
@@ -143,14 +138,14 @@ button:hover {
 # 3. app.js
 
 ```javascript
-function orderFood(item) {
-    alert(`${item} ordered successfully!`);
+function showAlert() {
+    alert("Welcome to QuickBite Food Delivery Demo App!");
 }
 ```
 
 ---
 
-# 4. GitHub Actions Workflow
+# 4. GitHub Actions Deployment Pipeline
 
 Create this file:
 
@@ -158,10 +153,10 @@ Create this file:
 .github/workflows/deploy.yml
 ```
 
-Paste the following:
+## deploy.yml
 
 ```yaml
-name: Deploy Food Delivery App to AWS S3
+name: Deploy Static Website to S3
 
 on:
   push:
@@ -179,5 +174,166 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      - name: Upload files to S3
+        run: |
+          aws s3 sync . s3://YOUR_BUCKET_NAME --delete
+
+      - name: CloudFront Cache Invalidation
+        run: |
+          aws cloudfront create-invalidation \
+          --distribution-id YOUR_DISTRIBUTION_ID \
+          --paths "/*"
 ```
 
+---
+
+# 5. AWS Setup Steps
+
+## Step 1 — Create S3 Bucket
+
+Example:
+
+```bash
+quickbite-demo-app
+```
+
+Enable:
+
+* Static Website Hosting
+* Public Read Access (for demo only)
+
+---
+
+## Step 2 — Upload Website Files
+
+Upload:
+
+* index.html
+* style.css
+* app.js
+
+---
+
+## Step 3 — Create CloudFront Distribution
+
+Origin:
+
+```bash
+S3 Static Website Endpoint
+```
+
+Enable:
+
+* Redirect HTTP to HTTPS
+* Default Root Object = index.html
+
+---
+
+## Step 4 — GitHub Secrets
+
+Add these secrets in GitHub:
+
+```bash
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+```
+
+---
+
+# 6. AWS CLI Commands
+
+## Upload manually
+
+```bash
+aws s3 sync . s3://YOUR_BUCKET_NAME
+```
+
+## CloudFront Invalidation
+
+```bash
+aws cloudfront create-invalidation \
+--distribution-id YOUR_DISTRIBUTION_ID \
+--paths "/*"
+```
+
+---
+
+# 7. Recommended Pipeline Testing Scenarios
+
+You can use this demo app to test:
+
+| Scenario        | Purpose                    |
+| --------------- | -------------------------- |
+| File Update     | Validate auto deployment   |
+| CSS Change      | Test CloudFront cache      |
+| JS Alert Change | Verify invalidation        |
+| S3 Sync         | Check CI/CD automation     |
+| Rollback        | Validate GitHub versioning |
+| HTTPS           | Test CloudFront SSL        |
+
+---
+
+# 8. Suggested Enhancements
+
+Future improvements:
+
+* Add React frontend
+* Add API Gateway backend
+* Lambda order processing
+* DynamoDB order storage
+* Cognito login
+* Terraform automation
+* Docker + ECS deployment
+* Kubernetes EKS deployment
+
+---
+
+# 9. Deployment Architecture
+
+```text
+Developer Push
+       ↓
+GitHub Repository
+       ↓
+GitHub Actions Pipeline
+       ↓
+Amazon S3 Bucket
+       ↓
+CloudFront CDN
+       ↓
+Users Access Website
+```
+
+---
+
+# 10. DevOps Skills Practiced
+
+This mini project helps practice:
+
+* AWS S3
+* AWS CloudFront
+* GitHub Actions
+* CI/CD Pipelines
+* AWS CLI
+* Cache Invalidation
+* Static Website Hosting
+* Infrastructure Testing
+* Deployment Automation
+
+---
+
+# 11. Recommended Next Upgrade
+
+After this static app, try:
+
+1. React Food Ordering App
+2. Dockerize the Application
+3. Deploy using Jenkins
+4. Terraform Full Automation
+5. Kubernetes Deployment
+6. Blue-Green Deployment
+7. Monitoring with CloudWatch
