@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        AWS_DEFAULT_REGION = 'us-east-1'
-        S3_BUCKET = 'clahantech2026'
-        CLOUDFRONT_DISTRIBUTION_ID = 'E60GJW85YNVGL'
+        AWS_DEFAULT_REGION = 'US East (N. Virginia) us-east-1'
+        S3_BUCKET = '20-05-2026'
+        CLOUDFRONT_DISTRIBUTION_ID = 'ranjih-05-2026'
     }
 
     stages {
@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 git branch: 'main',
-                url: 'https://github.com/nexgen369/Frontend_Batch02'
+                url: 'https://github.com/ranjithnkranju-hash/myapp-frontend.git'
             }
         }
 
