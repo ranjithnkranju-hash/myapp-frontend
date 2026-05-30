@@ -1,169 +1,400 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodExpress</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FoodExpress - Food Delivery App</title>
 
-    <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family: Arial, sans-serif;
-        }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
+}
 
-        body{
-            background:#f4f4f4;
-        }
+body{
+    background:#121212;
+    color:#ffffff;
+}
 
-        header{
-            background:#ff6b35;
-            color:white;
-            padding:20px;
-            text-align:center;
-        }
+header{
+    background:#1a1a1a;
+    text-align:center;
+    padding:25px;
+    border-bottom:3px solid #ff8c42;
+}
 
-        .hero{
-            text-align:center;
-            padding:50px 20px;
-        }
+header h1{
+    color:#ff8c42;
+    margin-bottom:10px;
+}
 
-        .hero h1{
-            font-size:40px;
-            margin-bottom:10px;
-        }
+.version{
+    margin-top:10px;
+    color:#bbb;
+}
 
-        .hero p{
-            color:#555;
-        }
+.cart{
+    margin-top:10px;
+    font-weight:bold;
+}
 
-        .container{
-            max-width:1200px;
-            margin:auto;
-            padding:20px;
-        }
+.search-section{
+    text-align:center;
+    padding:25px;
+}
 
-        .food-grid{
-            display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-            gap:20px;
-        }
+.search-section input{
+    width:80%;
+    max-width:500px;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+}
 
-        .card{
-            background:white;
-            border-radius:10px;
-            overflow:hidden;
-            box-shadow:0 2px 10px rgba(0,0,0,0.1);
-        }
+.categories{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    padding:15px;
+}
 
-        .card img{
-            width:100%;
-            height:200px;
-            object-fit:cover;
-        }
+.categories button{
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:#ff8c42;
+    color:white;
+    cursor:pointer;
+}
 
-        .card-content{
-            padding:15px;
-        }
+.categories button:hover{
+    opacity:0.9;
+}
 
-        .price{
-            color:#ff6b35;
-            font-weight:bold;
-            margin:10px 0;
-        }
+.hero{
+    text-align:center;
+    padding:40px 20px;
+}
 
-        button{
-            width:100%;
-            background:#ff6b35;
-            color:white;
-            border:none;
-            padding:10px;
-            cursor:pointer;
-            border-radius:5px;
-        }
+.hero h2{
+    color:#ff8c42;
+    margin-bottom:10px;
+}
 
-        button:hover{
-            background:#e65a29;
-        }
+.container{
+    max-width:1300px;
+    margin:auto;
+    padding:20px;
+}
 
-        footer{
-            text-align:center;
-            padding:20px;
-            background:#222;
-            color:white;
-            margin-top:40px;
-        }
+.food-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
 
-        #cartCount{
-            font-weight:bold;
-            color:yellow;
-        }
-    </style>
+.card{
+    background:#1e1e1e;
+    border-radius:15px;
+    overflow:hidden;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.card-content{
+    padding:15px;
+}
+
+.price{
+    color:#ff8c42;
+    font-size:20px;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.card button{
+    width:100%;
+    padding:10px;
+    border:none;
+    background:#ff8c42;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.card button:hover{
+    background:#ff9f5c;
+}
+
+.section{
+    background:#1e1e1e;
+    margin:30px auto;
+    max-width:1200px;
+    border-radius:15px;
+    padding:25px;
+}
+
+.section h2{
+    color:#ff8c42;
+    margin-bottom:15px;
+}
+
+.delivery ul{
+    list-style:none;
+}
+
+.delivery li{
+    padding:10px;
+    border-bottom:1px solid #333;
+}
+
+.review-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
+}
+
+.review-card{
+    background:#2a2a2a;
+    padding:15px;
+    border-radius:10px;
+}
+
+footer{
+    text-align:center;
+    padding:25px;
+    background:#1a1a1a;
+    margin-top:30px;
+}
+
+@media(max-width:768px){
+    .search-section input{
+        width:95%;
+    }
+}
+</style>
 </head>
+
 <body>
 
 <header>
-    <h1>🍔 FoodExpress</h1>
-    <p>Fast Delivery, Fresh Food</p>
-    <p>Cart Items: <span id="cartCount">0</span></p>
+    <h1>🍽 FoodExpress</h1>
+    <p>Delivering Happiness in 30 Minutes</p>
+
+    <div class="cart">
+        🛒 Cart Items:
+        <span id="cartCount">0</span>
+    </div>
+
+    <div class="version">
+        Build Version: 2.0.0
+    </div>
 </header>
 
+<section class="search-section">
+    <input type="text" id="searchBox"
+           placeholder="Search food items..."
+           onkeyup="searchFood()">
+</section>
+
+<section class="categories">
+    <button>🍕 Pizza</button>
+    <button>🍔 Burgers</button>
+    <button>🍛 Indian</button>
+    <button>🥗 Healthy</button>
+    <button>🍰 Desserts</button>
+</section>
+
 <section class="hero">
-    <h1>Order Your Favorite Food</h1>
-    <p>Demo Application Hosted on AWS S3 + CloudFront</p>
+    <h2>Order Your Favorite Food Online</h2>
+    <p>AWS S3 + CloudFront + DevOps Pipeline Demo Application</p>
 </section>
 
 <div class="container">
-    <div class="food-grid">
+<div class="food-grid" id="foodGrid">
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600" alt="Burger">
-            <div class="card-content">
-                <h3>Classic Burger</h3>
-                <p>Juicy beef burger with cheese.</p>
-                <div class="price">₹199</div>
-                <button onclick="addToCart()">Add to Cart</button>
-            </div>
-        </div>
+<div class="card food-item">
+<img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800" alt="">
+<div class="card-content">
+<h3>Classic Burger</h3>
+<p>Juicy grilled burger with cheese.</p>
+<div class="price">₹199</div>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+</div>
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600" alt="Pizza">
-            <div class="card-content">
-                <h3>Veg Pizza</h3>
-                <p>Loaded with fresh vegetables.</p>
-                <div class="price">₹299</div>
-                <button onclick="addToCart()">Add to Cart</button>
-            </div>
-        </div>
+<div class="card food-item">
+<img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800" alt="">
+<div class="card-content">
+<h3>Veg Pizza</h3>
+<p>Loaded with farm fresh vegetables.</p>
+<div class="price">₹299</div>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+</div>
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600" alt="Pizza">
-            <div class="card-content">
-                <h3>Cheese Pizza</h3>
-                <p>Extra cheese and crispy crust.</p>
-                <div class="price">₹349</div>
-                <button onclick="addToCart()">Add to Cart</button>
-            </div>
-        </div>
+<div class="card food-item">
+<img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800" alt="">
+<div class="card-content">
+<h3>Chicken Biryani</h3>
+<p>Authentic Hyderabadi style biryani.</p>
+<div class="price">₹349</div>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+</div>
 
-    </div>
+<div class="card food-item">
+<img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800" alt="">
+<div class="card-content">
+<h3>Masala Dosa</h3>
+<p>Crispy dosa with potato masala.</p>
+<div class="price">₹149</div>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+</div>
+
+<div class="card food-item">
+<img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=800" alt="">
+<div class="card-content">
+<h3>White Sauce Pasta</h3>
+<p>Creamy Italian pasta.</p>
+<div class="price">₹249</div>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+</div>
+
+<div class="card food-item">
+<img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=800" alt="">
+<div class="card-content">
+<h3>Paneer Tikka</h3>
+<p>Grilled cottage cheese cubes.</p>
+<div class="price">₹229</div>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+</div>
+
+<div class="card food-item">
+<img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=800" alt="">
+<div class="card-content">
+<h3>Chocolate Shake</h3>
+<p>Rich and creamy milkshake.</p>
+<div class="price">₹129</div>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+</div>
+
+<div class="card food-item">
+<img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800" alt="">
+<div class="card-content">
+<h3>Ice Cream Sundae</h3>
+<p>Vanilla ice cream with toppings.</p>
+<div class="price">₹99</div>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="section delivery">
+<h2>🚚 Live Delivery Status</h2>
+<ul>
+<li>✅ Order Confirmed</li>
+<li>✅ Food Being Prepared</li>
+<li>✅ Out For Delivery</li>
+<li>⏳ Estimated Arrival: 15 Minutes</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>⭐ Customer Reviews</h2>
+
+<div class="review-grid">
+<div class="review-card">
+<p>"Amazing service and super fast delivery."</p>
+<strong>- Rahul</strong>
+</div>
+
+<div class="review-card">
+<p>"The biryani was delicious and hot."</p>
+<strong>- Priya</strong>
+</div>
+
+<div class="review-card">
+<p>"Easy ordering experience."</p>
+<strong>- Arjun</strong>
+</div>
+
+<div class="review-card">
+<p>"Perfect demo application for testing."</p>
+<strong>- DevOps Engineer</strong>
+</div>
+</div>
+</div>
+
+<div class="section">
+<h2>🚀 Deployment Information</h2>
+<p><strong>Application:</strong> FoodExpress</p>
+<p><strong>Environment:</strong> Production</p>
+<p><strong>Version:</strong> 2.0.0</p>
+<p><strong>Deployment Time:</strong>
+<span id="deployTime"></span></p>
 </div>
 
 <footer>
-    <p>FoodExpress Demo App | AWS DevOps Pipeline Testing</p>
+<p>FoodExpress © 2026</p>
+<p>AWS S3 | CloudFront | CodePipeline | CodeBuild Demo</p>
 </footer>
 
 <script>
-    let count = 0;
 
-    function addToCart() {
-        count++;
-        document.getElementById("cartCount").innerText = count;
-        alert("Item added to cart!");
+let cartCount = 0;
+
+function addToCart(){
+    cartCount++;
+    document.getElementById("cartCount").innerText = cartCount;
+}
+
+function searchFood(){
+    let input =
+    document.getElementById("searchBox")
+    .value.toLowerCase();
+
+    let items =
+    document.getElementsByClassName("food-item");
+
+    for(let i=0;i<items.length;i++){
+
+        let title =
+        items[i].innerText.toLowerCase();
+
+        if(title.includes(input)){
+            items[i].style.display="";
+        }
+        else{
+            items[i].style.display="none";
+        }
     }
+}
 
-    console.log("FoodExpress Application Loaded Successfully");
+document.getElementById("deployTime").innerHTML =
+new Date().toLocaleString();
+
+console.log("FoodExpress v2.0.0 Loaded Successfully");
+
 </script>
 
 </body>
