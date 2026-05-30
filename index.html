@@ -1,82 +1,170 @@
-export default function FoodDeliveryDemoApp() {
-  const foods = [
-    {
-      id: 1,
-      name: "Masala Dosa",
-      category: "South Indian",
-      price: 120,
-      image:
-        "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 2,
-      name: "Veg Biryani",
-      category: "Rice Bowl",
-      price: 180,
-      image:
-        "https://images.unsplash.com/photo-1701579231378-3727f9fbe5f6?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 3,
-      name: "Paneer Burger",
-      category: "Fast Food",
-      price: 150,
-      image:
-        "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 4,
-      name: "Cold Coffee",
-      category: "Beverages",
-      price: 90,
-      image:
-        "https://images.unsplash.com/photo-1517701550927-30cf4ba1fcef?q=80&w=1200&auto=format&fit=crop",
-    },
-  ];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodExpress</title>
 
-  return (
-    <div className="min-h-screen bg-gray-100 text-gray-900">
-      <header className="bg-orange-500 text-white shadow-lg">
-        <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold">FoodExpress</h1>
-            <p className="text-sm opacity-90">
-              Demo App for AWS S3 + CloudFront Pipeline Testing
-            </p>
-          </div>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
 
-          <button className="bg-white text-orange-500 px-5 py-2 rounded-2xl font-semibold shadow-md hover:scale-105 transition-transform">
-            View Cart
-          </button>
+        body{
+            background:#f4f4f4;
+        }
+
+        header{
+            background:#ff6b35;
+            color:white;
+            padding:20px;
+            text-align:center;
+        }
+
+        .hero{
+            text-align:center;
+            padding:50px 20px;
+        }
+
+        .hero h1{
+            font-size:40px;
+            margin-bottom:10px;
+        }
+
+        .hero p{
+            color:#555;
+        }
+
+        .container{
+            max-width:1200px;
+            margin:auto;
+            padding:20px;
+        }
+
+        .food-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:20px;
+        }
+
+        .card{
+            background:white;
+            border-radius:10px;
+            overflow:hidden;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .card img{
+            width:100%;
+            height:200px;
+            object-fit:cover;
+        }
+
+        .card-content{
+            padding:15px;
+        }
+
+        .price{
+            color:#ff6b35;
+            font-weight:bold;
+            margin:10px 0;
+        }
+
+        button{
+            width:100%;
+            background:#ff6b35;
+            color:white;
+            border:none;
+            padding:10px;
+            cursor:pointer;
+            border-radius:5px;
+        }
+
+        button:hover{
+            background:#e65a29;
+        }
+
+        footer{
+            text-align:center;
+            padding:20px;
+            background:#222;
+            color:white;
+            margin-top:40px;
+        }
+
+        #cartCount{
+            font-weight:bold;
+            color:yellow;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🍔 FoodExpress</h1>
+    <p>Fast Delivery, Fresh Food</p>
+    <p>Cart Items: <span id="cartCount">0</span></p>
+</header>
+
+<section class="hero">
+    <h1>Order Your Favorite Food</h1>
+    <p>Demo Application Hosted on AWS S3 + CloudFront</p>
+</section>
+
+<div class="container">
+    <div class="food-grid">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600" alt="Burger">
+            <div class="card-content">
+                <h3>Classic Burger</h3>
+                <p>Juicy beef burger with cheese.</p>
+                <div class="price">₹199</div>
+                <button onclick="addToCart()">Add to Cart</button>
+            </div>
         </div>
-      </header>
 
-      <section className="max-w-7xl mx-auto px-6 py-10">
-        <div className="mb-8 text-center">
-          <h2 className="text-4xl font-bold mb-3">
-            Fresh Food Delivered Fast
-          </h2>
-          <p className="text-gray-600 text-lg">
-            Static demo application ideal for CI/CD deployment testing.
-          </p>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600" alt="Pizza">
+            <div class="card-content">
+                <h3>Veg Pizza</h3>
+                <p>Loaded with fresh vegetables.</p>
+                <div class="price">₹299</div>
+                <button onclick="addToCart()">Add to Cart</button>
+            </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {foods.map((food) => (
-            <div
-              key={food.id}
-              className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300"
-            >
-              <img
-                src={food.image}
-                alt={food.name}
-                className="h-52 w-full object-cover"
-              />
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600" alt="Pizza">
+            <div class="card-content">
+                <h3>Cheese Pizza</h3>
+                <p>Extra cheese and crispy crust.</p>
+                <div class="price">₹349</div>
+                <button onclick="addToCart()">Add to Cart</button>
+            </div>
+        </div>
 
-              <div className="p-5">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold">{food.name}</h3>
-                  <span className="text-orange-500 font-semibold">
-                    ₹{food.price}
-                  </span>
-                </div>
+    </div>
+</div>
+
+<footer>
+    <p>FoodExpress Demo App | AWS DevOps Pipeline Testing</p>
+</footer>
+
+<script>
+    let count = 0;
+
+    function addToCart() {
+        count++;
+        document.getElementById("cartCount").innerText = count;
+        alert("Item added to cart!");
+    }
+
+    console.log("FoodExpress Application Loaded Successfully");
+</script>
+
+</body>
+</html>
